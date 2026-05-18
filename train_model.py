@@ -37,7 +37,7 @@ cat_features = [
 ]
 
 # TODO: use the process_data function provided to process the data.
-X_train, y_train, encoder, lb = process_data(
+X_train, y_train, encoder, lb, scaler = process_data(
     train,
     categorical_features=cat_features,
     label="salary",
@@ -47,13 +47,14 @@ X_train, y_train, encoder, lb = process_data(
     # do not need to pass encoder and lb as input
     )
 
-X_test, y_test, _, _ = process_data(
+X_test, y_test, _, _, _ = process_data(
     test,
     categorical_features=cat_features,
     label="salary",
     training=False,
     encoder=encoder,
     lb=lb,
+    scaler=scaler
 )
 
 # TODO: use the train_model function to train the model on the training dataset
@@ -93,7 +94,8 @@ for col in cat_features:
             "salary", 
             encoder, 
             lb, 
-            model
+            model, 
+            scaler
         )
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
