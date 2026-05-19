@@ -29,6 +29,7 @@ def process_data(
         Trained sklearn OneHotEncoder, only used if training=False.
     lb : sklearn.preprocessing._label.LabelBinarizer
         Trained sklearn LabelBinarizer, only used if training=False.
+    scaler : sklearn.preprocessing.StandardScaler
 
     Returns
     -------
@@ -42,6 +43,8 @@ def process_data(
     lb : sklearn.preprocessing._label.LabelBinarizer
         Trained LabelBinarizer if training is True, otherwise returns the binarizer
         passed in.
+    scaler : sklearn.preprocessing.StandardScaler
+        Trained scaler if training is true; otherwise returns the scaler passed in.
     """
 
     if label is not None:
