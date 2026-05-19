@@ -1,28 +1,50 @@
 import pytest
-# TODO: add necessary import
+import pandas as pd
+from ml.data import process_data, apply_label
+from ml.model import train_model
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
-# TODO: implement the first test. Change the function name and input as needed
-def test_one():
+data = pd.read_csv("data/census.csv")
+train, test = train_test_split(data, test_size=0.2, random_state=8)
+
+cat_features = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+]
+
+X_train, y_train, encoder, lb, scaler = process_data(
+    train,
+    categorical_features=cat_features,
+    label="salary",
+    training=True
+)
+
+model = train_model(X_train, y_train)
+
+def test_apply_label():
     """
-    # add description for the first test
+    Verify that the binary label in a single inference sample is converted into string output
     """
-    # Your code here
-    pass
+    assert apply_label([1]) == ">50K", "Binary label conversion incorrect for >50K"
+    assert apply_label([0]) == "<=50K", "Binary label conversion incorrect for <=50K"
 
 
-# TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_test_set_size():
     """
-    # add description for the second test
+    Verify that the test set has at least 500 instances
     """
-    # Your code here
-    pass
+    assert len(test) >= 500, f"Test set is below 500 instances."
 
 
-# TODO: implement the third test. Change the function name and input as needed
-def test_three():
+def test_if_log_regression():
     """
-    # add description for the third test
+    Verifies function returns logistic regression model
     """
-    # Your code here
-    pass
+    assert isinstance(model, LogisticRegression), "The returned model is not a logistic regression."

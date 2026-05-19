@@ -3,8 +3,6 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score
 from ml.data import process_data
 # TODO: add necessary import
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import LabelBinarizer, OneHotEncoder, StandardScaler
-
 
 
 # Optional: implement hyperparameter tuning.
@@ -20,11 +18,11 @@ def train_model(X_train, y_train):
         Labels.
     Returns
     -------
-    model
+    model: logistic regression model 
         Trained machine learning model.
     """
     # TODO: implement the function
-    model = LogisticRegression()
+    model = LogisticRegression(random_state=8)
     model.fit(X_train, y_train)
     return model 
 
