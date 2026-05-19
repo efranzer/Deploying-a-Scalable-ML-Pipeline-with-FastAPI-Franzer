@@ -41,7 +41,6 @@ app = FastAPI()
 # TODO: create a GET on the root giving a welcome message
 @app.get("/")
 async def get_root():
-    """ Say hello!"""
     return {"greeting": "Howdy!"}
 
 
